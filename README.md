@@ -1,4 +1,4 @@
-# Cicrp. : a NFTMarketPlace
+# Cicrp. : A NFTMarketPlace
 
 
 ## Features
@@ -10,7 +10,7 @@
 * He can also bid a price for NFT. 
 
 
-<img align="center" width="350px" height="400px" src="./ReadmeImage/image.png">
+<img align="center" width="350px" height="400px" src="./ReadmeImae/image.png">
 
 ## Tech Stack
 
@@ -19,7 +19,7 @@
 * Web3Modal
 * Solidity
 
-## PreSetup Instructions (UserEnd)
+## PreSetup Instructions (UserEnd)It ain't much but it's honest work 🥳
 1. Setup a crypto walllet extension on your browser.
 
 ## PreSetup Instructions (ServiceProviderEnd)
