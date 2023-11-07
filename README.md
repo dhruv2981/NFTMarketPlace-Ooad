@@ -10,7 +10,7 @@
 * He can also bid a price for NFT. 
 
 
-<img align="center" width="350px" height="400px" src="./image.png">
+<img align="center" width="350px" height="400px" src="./ReadmeImage/image.png">
 
 ## Tech Stack
 
@@ -18,8 +18,6 @@
 * Ethers.js
 * Web3Modal
 * Solidity
-
-It ain't much but it's honest work 🥳
 
 ## PreSetup Instructions (UserEnd)
 1. Setup a crypto walllet extension on your browser.
