@@ -19,12 +19,18 @@
 * Web3Modal
 * Solidity
 
-## PreSetup Instructions (UserEnd)It ain't much but it's honest work 🥳
+## PreSetup Instructions (UserEnd)
 1. Setup a crypto walllet extension on your browser.
 
 ## PreSetup Instructions (ServiceProviderEnd)
 1. Setup a crypto walllet extension on your browser.
 2. Deploy the smart contract.
+   * To deploy it locally run the following commands
+     ```bash
+    $ npx hardhat node
+    $ npx hardhat run scripts/deploy.js --network localhost
+    ```
+     
 
 ## Setup Instructions
 
