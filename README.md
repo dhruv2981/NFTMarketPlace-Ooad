@@ -26,8 +26,9 @@
 1. Setup a crypto walllet extension on your browser.
 2. Deploy the smart contract.
    * To deploy it locally run the following commands
-     ```bash
-    $ npx hardhat node
+     
+    ```bash
+    $ npx hardhat node 
     $ npx hardhat run scripts/deploy.js --network localhost
     ```
      
