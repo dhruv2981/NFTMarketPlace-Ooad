@@ -7,10 +7,10 @@
 * User can view NFT details, author details.
 * His crypto wallet will automatically get connected to the marketplace.
 * User can buy, sell and resell NFTs.
-* He can also bid a price for NFT. 
-
-
-![UserFlow](ReadmeImage/image.png)
+* He can also bid a price for NFT.
+  
+## UserFlow
+![image](https://github.com/dhruv2981/NFTMarketPlace-Ooad-Group11/assets/121158631/d2e19e70-5123-4fe9-95e1-e74019e2b001)
 
 ## Tech Stack
 
