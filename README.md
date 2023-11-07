@@ -9,9 +9,8 @@
 * User can buy, sell and resell NFTs.
 * He can also bid a price for NFT. 
 
-<p align="center">
-<img src="Ooad-project-group11/ReadmeImage/image.png" width="350px" height="400px" alt="User flow">
-</p>
+
+![UserFlow](ReadmeImage/image.png)
 
 ## Tech Stack
 
