@@ -55,7 +55,7 @@
 * Dhruv, 22114029, +91 9872473623
 * Himanshu Raheja, 22323023, +91 7589325494
 * Shreya Jain, 22114091, +91 9425669383
-* Somya Chawla, 22114095, +91 7737770302 (GitHub Username = Altoiids)
+* Somya Chawla, 22114095, +91 7737770302
 
 Created with 💖 by Group11
 
