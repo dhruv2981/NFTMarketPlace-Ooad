@@ -1,57 +1,100 @@
-import React, { useState } from 'react'
-import { MdOutlineHttp, MdOutlineAttachFile } from 'react-icons/md'
-import { FaPercent } from 'react-icons/fa'
-import { AiTwotonePropertySafety } from 'react-icons/ai'
-import { TiTick } from 'react-icons/ti'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import React, { useState } from "react";
+import { MdOutlineHttp, MdOutlineAttachFile } from "react-icons/md";
+import { FaPercent } from "react-icons/fa";
+import { AiTwotonePropertySafety } from "react-icons/ai";
+import { TiTick } from "react-icons/ti";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
-import Style from './Upload.module.css'
-import formStyle from '../AccountPage/Form/Form.module.css'
-import images from '../img'
-import { Button } from '../components/componentsindex.js'
-import { DropZone } from './uploadNFTIndex.js'
+import Style from "./Upload.module.css";
+import formStyle from "../AccountPage/Form/Form.module.css";
+import images from "../img";
+import { Button } from "../components/componentsindex.js";
+import { DropZone } from "./uploadNFTIndex.js";
 
 const UloadNFT = ({ uploadToIPFS, createNFT }) => {
-  const [price, setPrice] = useState('')
-  const [name, setName] = useState('')
-  const [website, setWebsite] = useState('')
-  const [description, setDescription] = useState('')
-  const [royalties, setRoyalties] = useState('')
-  const [fileSize, setFileSize] = useState('')
-  const [category, setCategory] = useState(0)
-  const [properties, setProperties] = useState('')
-  const [image, setImage] = useState(null)
+  const [price, setPrice] = useState("");
+  const [stoploss, setStopLoss] = useState("");
+  const [stopprofit, setStopProfit] = useState("");
+  const [name, setName] = useState("");
+  const [website, setWebsite] = useState("");
+  const [description, setDescription] = useState("");
+  const [royalties, setRoyalties] = useState("");
+  const [fileSize, setFileSize] = useState("");
+  const [category, setCategory] = useState(0);
+  const [properties, setProperties] = useState("");
+  const [image, setImage] = useState(null);
+  const [tokens, setTokens] = useState([]);
+  const [tokenName, setTokenName] = useState("");
+  const [percentage, setPercentage] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const categoryArry = [
-    {
-      image: images.nft_image_1,
-      category: 'Sports',
-    },
-    {
-      image: images.nft_image_2,
-      category: 'Arts',
-    },
-    {
-      image: images.nft_image_3,
-      category: 'Music',
-    },
-    {
-      image: images.nft_image_1,
-      category: 'Digital',
-    },
-    {
-      image: images.nft_image_2,
-      category: 'Time',
-    },
-    {
-      image: images.nft_image_3,
-      category: 'Photography',
-    },
-  ]
+  const categoryArry = [];
 
-  const router = useRouter()
+  const router = useRouter();
+  const popularCurrencies = [
+    "Bitcoin",
+    "Ethereum",
+    "Litecoin",
+    "Dogecoin",
+    "Cardano",
+    "Solana",
+    "Polkadot",
+    "Chainlink"
+  ];
+
+  const priceMapping = {
+    
+    "Bitcoin": 100,
+    "Ethereum": 200,
+    "Litecoin" : 300,
+    "Dogecoin" : 400,
+    "Cardano" : 500,
+    "Solana" : 600,
+    "Polkadot" : 700,
+    "Chainlink" : 800,
+    // ... other currency mappings
+  };
+
+  const handleTokenChange = (e) => {
+    const selectedToken = e.target.value;
+    setTokenName(selectedToken);
+    setPrice(priceMapping[selectedToken] || '');
+  };
+  
+
+  const addTokenToList = () => {
+    if (tokenName && percentage) {
+      const newToken = { name: tokenName, percentage: parseFloat(percentage) };
+      setTokens([...tokens, newToken]);
+      setTokenName("");
+      setPercentage("");
+    }
+  };
+
+  const removeToken = (index) => {
+    setTokens(tokens.filter((_, i) => i !== index));
+  };
+
+  const calculateTotalPrice = () => {
+    let totalPercentage = tokens.reduce(
+      (acc, curr) => acc + curr.percentage,
+      0
+    );
+
+    // Ensure percentages add up to 100%
+    if (totalPercentage !== 100) {
+      alert("Total percentage must add up to 100%");
+      return;
+    }
+
+    let totalPrice = price;
+    tokens.forEach((token) => {
+      totalPrice += parseFloat(price) * (token.percentage / 100);
+    });
+    setTotalPrice(totalPrice);
+  };
 
   return (
     <div className={Style.upload}>
@@ -119,112 +162,112 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
         </div>
 
         <div className={formStyle.Form_box_input}>
-          <label htmlFor="name">Choose collection</label>
-          <p className={Style.upload_box_input_para}>
-            Choose an exiting collection or create a new one
-          </p>
+          <label htmlFor="stopLoss">Stop Loss</label>
+          <input
+            type="text"
+            placeholder="Stop Loss"
+            className={formStyle.Form_box_input_userName}
+            onChange={(e) => setStopLoss(e.target.value)}
+          />
+        </div>
 
-          <div className={Style.upload_box_slider_div}>
-            {categoryArry.map((el, i) => (
-              <div
-                className={`${Style.upload_box_slider} ${
-                  name == i + 1 ? Style.name : ''
-                }`}
-                key={i + 1}
-                onClick={() => (setName(i + 1), setCategory(el.category))}
-              >
-                <div className={Style.upload_box_slider_box}>
-                  <div className={Style.upload_box_slider_box_img}>
-                    <Image
-                      src={el.image}
-                      alt="background image"
-                      width={70}
-                      height={70}
-                      className={Style.upload_box_slider_box_img_img}
-                    />
-                  </div>
-                  <div className={Style.upload_box_slider_box_img_icon}>
-                    <TiTick />
-                  </div>
-                </div>
-                <p>Crypto Legend - {el.category} </p>
-              </div>
+
+        <div className={formStyle.Form_box_input}>
+          <label htmlFor="profitLoss">Stop Profit</label>
+          <input
+            type="text"
+            placeholder="Profit Loss"
+            className={formStyle.Form_box_input_userName}
+            onChange={(e) => setStopProfit(e.target.value)}
+          />
+        </div>
+
+
+<div className={formStyle.Form_box_input}>
+        <label htmlFor="tokenName">Token Name</label>
+        <select
+          id="tokenName"
+          className={formStyle.Form_box_input_userName}
+          value={tokenName}
+          onChange={handleTokenChange}
+        >
+          <option value="">Select Token Name</option>
+          {popularCurrencies.map((currency) => (
+            <option key={currency} value={currency}>
+              {currency}
+            </option>
+          ))}
+        </select>
+      </div>
+
+
+        <div className={formStyle.Form_box_input}>
+          <h3>Selected Tokens:</h3>
+          <ul>
+            {tokens.map((token, index) => (
+              <li key={index}>
+                {token.name} - {token.percentage}%
+              </li>
             ))}
-          </div>
+          </ul>
+
+          <ul>
+            {tokens.map((token, index) => (
+              <li key={index}>
+                {token.name} - {token.percentage}%
+                <button onClick={() => removeToken(index)}>Remove</button>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className={formStyle.Form_box_input_social}>
-          <div className={formStyle.Form_box_input}>
-            <label htmlFor="Royalties">Royalties</label>
-            <div className={formStyle.Form_box_input_box}>
-              <div className={formStyle.Form_box_input_box_icon}>
-                <FaPercent />
-              </div>
-              <input
-                type="text"
-                placeholder="20%"
-                onChange={(e) => setRoyalties(e.target.value)}
-              />
+        {/* <div className={formStyle.Form_box_input}>
+          <label htmlFor="Price">Price</label>
+          <div className={formStyle.Form_box_input_box}>
+            <div className={formStyle.Form_box_input_box_icon}>
+              <FaPercent />
             </div>
+            <input
+              type="text"
+              placeholder="Price"
+              onChange={(e) => setPrice(e.target.value)}
+            />
           </div>
+        </div> */}
 
-          <div className={formStyle.Form_box_input}>
-            <label htmlFor="Price">Price</label>
-            <div className={formStyle.Form_box_input_box}>
-              <div className={formStyle.Form_box_input_box_icon}>
-                <FaPercent />
-              </div>
-              <input
-                type="text"
-                placeholder="Price"
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
-          </div>
 
-          <div className={formStyle.Form_box_input}>
-            <label htmlFor="size">Size</label>
-            <div className={formStyle.Form_box_input_box}>
-              <div className={formStyle.Form_box_input_box_icon}>
-                <MdOutlineAttachFile />
-              </div>
-              <input
-                type="text"
-                placeholder="165MB"
-                onChange={(e) => setFileSize(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
 
-        <div className={Style.upload_box_btn}>
-          <Button
-            btnName="Upload"
-            handleClick={() => {}}
-            classStyle={Style.upload_box_btn_style}
-          />
-          <Button
-            btnName="Preview"
-            handleClick={async () => {
-              createNFT(
-                name,
-                price,
-                image,
-                description,
-                router
-                // website,
-                // royalties,
-                // fileSize,
-                // category,
-                // properties
-              )
-            }}
-            classStyle={Style.upload_box_btn_style}
-          />
-        </div>
+<div className={formStyle.Form_box_input}  >
+  <label htmlFor="Price">Price</label>
+  <div className={formStyle.Form_box_input_box} style={{ width: '100%' }}>
+    <input
+      type="text"
+      value={price}
+      readOnly
+      style={{ width: '100%', boxSizing: 'border-box', padding: '15px' }}
+    />
+  </div>
+</div>
+
+
+      </div>
+
+      <div
+        className={Style.upload_box_btn}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          btnName="Upload"
+          handleClick={() => {}}
+          classStyle={Style.upload_box_btn_style}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UloadNFT
+export default UloadNFT;
